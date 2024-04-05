@@ -117,7 +117,7 @@ boolean CheckerDT_isValid(boolean bIsInitialized, Node_T oNRoot,
       }
 
       if(oNRoot != NULL) {
-         fprint(stderr, "Not initialized but root is not NULL\0");
+         fprintf(stderr, "Not initialized but root is not NULL\0");
          return FALSE;
       }
       return TRUE;
@@ -137,7 +137,7 @@ boolean CheckerDT_isValid(boolean bIsInitialized, Node_T oNRoot,
 
       }
       if (Node_getParent(oNRoot) != NULL) {
-         printf(stderr, "Tree is initialized but root parent is not null\n");
+         fprintf(stderr, "Tree is initialized but root parent is not null\n");
          return FALSE;
 
       }

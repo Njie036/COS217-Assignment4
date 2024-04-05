@@ -148,7 +148,7 @@ boolean CheckerDT_isValid(boolean bIsInitialized, Node_T oNRoot,
 
    if (checkerTreeGood == TRUE) {
       if(ulCount != realCount) {
-         fprintf(stderr, "ulCount does not match the number of nodes in the tree 0\n");
+         fprintf(stderr, "ulCount does not match the number of nodes in the tree\n");
          return FALSE;
       }
    }

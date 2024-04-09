@@ -132,6 +132,11 @@ the error manifests itself or is "noticed" by the client.
 What are your critiques of the given DT implementations, as
 specified in Step 2.5?
 
+dtGood.c detects errors but does not handle them because there are no
+stderr found in their body. Even though it returns.
+
+For dtGood.c there are lot of dependencies which increases coupling between
+modules. 
 
 
 ------------------------------------------------------------------------

@@ -138,4 +138,13 @@ ii. Node_new() returns iStatus (vague error report) insteads of the enum variabl
 the function.
 iii. Node_compare() in the implementation was unnecessary since Path_comparePath
 could suffice. 
+
+Critiue for dtGood.c and dt.h
+i. dtGood.c detects errors but does not handle them because there are no
+stderr found in their body. Even though it returns.
+
+ii. For dtGood.c there are lot of dependencies which increases coupling between
+modules. 
+
+
 ------------------------------------------------------------------------

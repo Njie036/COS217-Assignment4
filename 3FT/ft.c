@@ -86,7 +86,7 @@ int FT_destroy(void){
 /* --------------------------------------------------------------------
 
   The following auxiliary functions are used for generating the
-  string representation of the DT.
+  string representation of the FT.
 */
 
 /*
@@ -119,7 +119,7 @@ static size_t FT_preOrderTraversal(Node_T n, DynArray_T d, size_t i) {
             /* Getting Directory Nodes Second*/
             iStatus = Node_getChild(n,c, FALSE,&oNChild);
             assert(iStatus == SUCCESS);
-            i = DT_preOrderTraversal(oNChild, d, i);
+            i = FT_preOrderTraversal(oNChild, d, i);
         }
     }
     return i;
@@ -160,7 +160,7 @@ char *FT_toString(void){
         return NULL;
 
     nodes = DynArray_new(ulCount);
-    (void) DT_preOrderTraversal(oNRoot, nodes, 0);
+    (void) FT_preOrderTraversal(oNRoot, nodes, 0);
 
     DynArray_map(nodes, (void (*)(void *, void*)) FT_strlenAccumulate,
                 (void*) &totalStrlen);

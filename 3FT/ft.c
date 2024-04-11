@@ -35,6 +35,22 @@ int FT_insertDir(const char *pcPath){
 
 }
 
+boolean FT_containsFile(const char *pcPath){
+
+}
+
+int FT_rmFile(const char *pcPath){
+
+
+}
+
+void *FT_getFileContents(const char *pcPath){
+
+}
+
+void *FT_replaceFileContents(const char *pcPath, void *pvNewContents, size_t ulNewLength){
+
+}
 
 int FT_init(void){
     assert(CheckerFT_isValid(bIsInitialized, oNRoot, ulCount));

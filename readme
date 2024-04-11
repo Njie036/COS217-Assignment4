@@ -131,19 +131,23 @@ the error manifests itself or is "noticed" by the client.
 ------------------------------------------------------------------------
 What are your critiques of the given DT implementations, as
 specified in Step 2.5?
+
 Critique for nodeDTGood.c and nodeDT.h
-Critique for nodeDTGood.c and nodeDT.h
-i. Node_compareString() in the implementation was unnecessary since Path_compareString
-could suffice. 
+i. Node_compareString() in the implementation was unnecessary since 
+Path_compareString could suffice. 
 
-ii. Node_compare() in the implementation was unnecessary since Path_comparePath
-could suffice. 
+ii. Node_compare() in the implementation was unnecessary since 
+Path_comparePath could suffice. 
 
-iii. DT_insert() in dtGood.c is really long and can be broken into smaller helper 
-functions. We can make the while a separate helper function.
-
-iv. Path_prefix() in path.c is also long and we can break the for loop as a helper 
+iii. DT_insert() in dtGood.c is really long and can be broken into 
+smaller helper functions. We can make the while a separate helper 
 function.
+
+iv. Path_prefix() in path.c is also long and we can break the for 
+loop as a helper function.
+
+v. Node_new() in nodeDT.h is not consistent because node comes before
+path in the other arguments but path comes before node in this function.
 
 
 ------------------------------------------------------------------------

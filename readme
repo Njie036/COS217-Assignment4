@@ -132,19 +132,18 @@ the error manifests itself or is "noticed" by the client.
 What are your critiques of the given DT implementations, as
 specified in Step 2.5?
 Critique for nodeDTGood.c and nodeDT.h
+Critique for nodeDTGood.c and nodeDT.h
 i. Node_compareString() in the implementation was unnecessary since Path_compareString
 could suffice. 
-ii. Node_new() returns iStatus (vague error report) insteads of the enum variables stated in the comment of
-the function.
-iii. Node_compare() in the implementation was unnecessary since Path_comparePath
+
+ii. Node_compare() in the implementation was unnecessary since Path_comparePath
 could suffice. 
 
-Critiue for dtGood.c and dt.h
-i. dtGood.c detects errors but does not handle them because there are no
-stderr found in their body. Even though it returns.
+iii. DT_insert() in dtGood.c is really long and can be broken into smaller helper 
+functions. We can make the while a separate helper function.
 
-ii. For dtGood.c there are lot of dependencies which increases coupling between
-modules. 
+iv. Path_prefix() in path.c is also long and we can break the for loop as a helper 
+function.
 
 
 ------------------------------------------------------------------------

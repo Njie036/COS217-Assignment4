@@ -50,7 +50,7 @@ static int Node_addChild(Node_T oNParent, Node_T oNChild,
         /* Wrong index if node is a file*/
         DynArray_bsearch(oNParent->oFileChildren,
             (char*) Path_getPathname(oNChild->oPPath), &ulIndex,
-            (int (*)(const void*,const void*)) Node_compareString);
+            (int (*)(const void*,const void*)) Path_compareString);
         if (DynArray_addAt(oNParent->oFileChildren, ulIndex, oNChild)){
             return SUCCESS;
         }
@@ -101,7 +101,6 @@ int Node_new(Path_T oPPath, Node_T oNParent, boolean bIsFile, void *pvContent, s
     int iStatus;
 
     assert(oPPath != NULL);
-    assert(oNParent == NULL || CheckerFT_Node_isValid(oNParent));
 
     /* allocate space for a new node */
     psNew = malloc(sizeof(struct node));

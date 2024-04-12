@@ -181,7 +181,7 @@ int FT_insertDir(const char *pcPath){
         return iStatus;
     }
 
-    iStatus = iStatus = Node_new(oPPath, oNParent, FALSE, NULL, 0, &oNNewDir);
+   iStatus = Node_new(oPPath, oNParent, FALSE, NULL, 0, &oNNewDir);
     if (iStatus != SUCCESS) {
         Path_free(oPPath);
         return iStatus;

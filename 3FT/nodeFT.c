@@ -279,18 +279,22 @@ Path_T Node_getPath(Node_T oNNode) {
 
 boolean Node_hasChild(Node_T oNParent, Path_T oPPath,
                          size_t *pulChildID) {
-   assert(oNParent != NULL);
-   assert(oPPath != NULL);
-   assert(pulChildID != NULL);
+    assert(oNParent != NULL);
+    assert(oPPath != NULL);
+    assert(pulChildID != NULL);
 
-   /* *pulChildID is the index into oNParent->oDChildren */
-   /* checks both the File and Directory DynArrays */
-   return DynArray_bsearch(oNParent->oFileChildren,
-            (char*) Path_getPathname(oPPath), pulChildID,
-            (int (*)(const void*,const void*)) Node_compareString) || 
-            DynArray_bsearch(oNParent->oDirChildren,
-            (char*) Path_getPathname(oPPath), pulChildID,
-            (int (*)(const void*,const void*)) Node_compareString);
+    if (oNParent->isFile)
+        return NOT_A_DIRECTORY;
+    
+
+    /* *pulChildID is the index into oNParent->oDChildren */
+    /* checks both the File and Directory DynArrays */
+    return DynArray_bsearch(oNParent->oFileChildren,
+                (char*) Path_getPathname(oPPath), pulChildID,
+                (int (*)(const void*,const void*)) Node_compareString) || 
+                DynArray_bsearch(oNParent->oDirChildren,
+                (char*) Path_getPathname(oPPath), pulChildID,
+                (int (*)(const void*,const void*)) Node_compareString);
 }
 
 /*

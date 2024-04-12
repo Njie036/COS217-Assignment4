@@ -83,15 +83,22 @@ static int FT_traversePath(Path_T oPPath, Node_T *poNFurthest) {
             Path_free(oPPrefix);
             oPPrefix = NULL;
             iStatus = Node_getChild(oNCurr, ulChildID, FALSE, &oNChild);
+            if (iStatus == SUCCESS) {
+                 oNCurr = oNChild;
+            }
             /*Not found as a directory, check if it is a file*/
-            if (iStatus != SUCCESS) {
+            else{
+                if (iStatus != SUCCESS) {
                 iStatus = Node_getChild(oNCurr, ulChildID, TRUE, &oNChild);
-            }
-            if(iStatus != SUCCESS) {
-                *poNFurthest = NULL;
-                return iStatus;
-            }
-            oNCurr = oNChild;
+                }
+
+                if(iStatus != SUCCESS) {
+                    *poNFurthest = NULL;
+                    return iStatus;
+                }
+                oNCurr = oNChild;
+                break;
+            }  
         }
         else {
             /* oNCurr doesn't have child with path oPPrefix:

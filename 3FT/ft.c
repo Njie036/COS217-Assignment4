@@ -208,7 +208,7 @@ boolean FT_containsDir(const char *pcPath){
 }
 
 int FT_rmDir(const char *pcPath){
-     Node_T oNTarget = NULL;
+    Node_T oNTarget = NULL;
     int iStatus;
 
     assert(pcPath != NULL);
@@ -221,8 +221,7 @@ int FT_rmDir(const char *pcPath){
     if (iStatus != SUCCESS || Node_isFileNode(oNTarget)) {
         return NO_SUCH_PATH;
     }
-
-    iStatus = FT_rmDir(oNTarget);
+    
     return iStatus;
 
 }

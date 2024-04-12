@@ -313,14 +313,14 @@ size_t Node_getNumChildren(Node_T oNParent) {
 */
 
 /* helper static function that takes a node as an argument  returns  */
-static size_t Node_getNumFileChildren(Node_T oNParent){
+size_t Node_getNumFileChildren(Node_T oNParent){
     assert(oNParent != NULL);
 
     return DynArray_getLength(oNParent->oFileChildren);
 
 }
 
-static size_t Node_getNumDirChildren(Node_T oNParent){
+size_t Node_getNumDirChildren(Node_T oNParent){
     assert(oNParent != NULL);
 
     return DynArray_getLength(oNParent->oDirChildren);

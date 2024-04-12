@@ -181,7 +181,7 @@ int FT_insertDir(const char *pcPath){
         return iStatus;
     }
 
-    iStatus = Node_insertFile(oNRoot, oPPath, &oNNewDir);
+    iStatus = FT_insertFile(oNRoot, oPPath, &oNNewDir);
     if (iStatus != SUCCESS) {
         Path_free(oPPath);
         return iStatus;
@@ -346,7 +346,7 @@ void *FT_replaceFileContents(const char *pcPath, void *pvNewContents, size_t ulN
         return NULL;
     }
 
-    oldContents = Node_replaceFileContents(oNTarget, pvNewContents, ulNewLength);
+    oldContents = FT_replaceFileContents(oNTarget, pvNewContents, ulNewLength);
     return oldContents;
 
 }
@@ -374,26 +374,6 @@ int FT_stat(const char *pcPath, boolean *pbIsFile, size_t *pulSize){
     }
 
     return SUCCESS;
-    
-    
-    
-    /* int iStatus;
-    // Node_T oNFound = NULL;
-    // assert(pcPath != NULL);
-    // /*assert(pbIsFile != NULL);
-    // assert(pulSize != NULL);*/
-
-    // iStatus = FT_findNode(pcPath, &oNFound);
-    // if (iStatus == SUCCESS){
-    //     if (oNFound->isFileNode){
-    //         pbIsFile = TRUE;
-    //         pulSize = oNFound->ulength;
-    //         return iStatus;
-    //     }
-    //     pbIsFile = FALSE;
-    //     return iStatus;
-    // }
-    // return iStatus; */
 
 
 }

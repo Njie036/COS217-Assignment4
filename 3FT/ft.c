@@ -181,7 +181,7 @@ int FT_insertDir(const char *pcPath){
         return iStatus;
     }
 
-    iStatus = FT_insertFile(oNRoot, oPPath, &oNNewDir);
+    iStatus = iStatus = Node_new(oPPath, oNParent, FALSE, NULL, 0, &oNNewDir);
     if (iStatus != SUCCESS) {
         Path_free(oPPath);
         return iStatus;
@@ -249,7 +249,7 @@ int FT_insertFile(const char *pcPath, void *pvContents, size_t ulLength){
         return iStatus;
     }
 
-    iStatus = Node_insertFile(oNRoot, oPPath, pvContents, ulLength, &oNNewFile);
+    iStatus = Node_new(oPPath, oNParent, TRUE, pvContents, ulLength, &oNNewFile);
     if (iStatus != SUCCESS) {
         Path_free(oPPath);
         return iStatus;

@@ -35,6 +35,8 @@ int Node_new(Path_T oPPath, Node_T oNParent, boolean bIsFile, void *pvContent, s
 */
 size_t Node_free(Node_T oNNode);
 
+void *Node_replaceOldContent(Node_T oNNode, void *newContent);
+
 /* Returns the path object representing oNNode's absolute path. */
 Path_T Node_getPath(Node_T oNNode);
 

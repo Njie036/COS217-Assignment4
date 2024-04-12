@@ -341,8 +341,7 @@ void *FT_replaceFileContents(const char *pcPath, void *pvNewContents, size_t ulN
         return NULL;
     }
 
-    oldContents = FT_replaceFileContents(oNTarget, pvNewContents, ulNewLength);
-    return oldContents;
+    return Node_replaceOldContent(oNTarget, pvNewContents);
 
 }
 
@@ -372,6 +371,7 @@ int FT_stat(const char *pcPath, boolean *pbIsFile, size_t *pulSize){
 
 
 }
+
 
 int FT_init(void){
 

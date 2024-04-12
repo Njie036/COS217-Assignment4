@@ -219,6 +219,16 @@ int Node_new(Path_T oPPath, Node_T oNParent, boolean bIsFile, void *pvContent, s
     
 }
 
+void *Node_replaceOldContent(Node_T oNNode, void *newContent) {
+    void *oldContents = NULL;
+    assert(oNNode != NULL);
+
+    oldContents = oNNode->content;
+    oNNode->content = newContent;
+
+    return oldContents;
+}
+
 
 size_t Node_free(Node_T oNNode){
     size_t ulIndex;

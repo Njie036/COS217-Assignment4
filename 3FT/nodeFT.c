@@ -90,7 +90,7 @@ static int Node_compareString(const Node_T oNFirst,
                  or oNParent is NULL but oPPath is not of depth 1
   * ALREADY_IN_TREE if oNParent already has a child with this path
 */
-int Node_new(Path_T oPPath, Node_T oNParent, bool bIsFile, void *pvContent, size_t ulength, Node_T *poNResult)
+int Node_new(Path_T oPPath, Node_T oNParent, boolean bIsFile, void *pvContent, size_t ulength, Node_T *poNResult)
 {
     struct node *psNew;
     Path_T oPParentPath = NULL;
@@ -328,7 +328,7 @@ static size_t Node_getNumDirChildren(Node_T oNParent){
 }
 
 
-int  Node_getChild(Node_T oNParent, size_t ulChildID, bool bIsFile,
+int  Node_getChild(Node_T oNParent, size_t ulChildID, boolean bIsFile,
                    Node_T *poNResult) {
 
    assert(oNParent != NULL);

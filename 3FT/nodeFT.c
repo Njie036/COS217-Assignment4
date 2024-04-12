@@ -307,22 +307,30 @@ boolean Node_isFileNode(Node_T oNNode){
 
 boolean Node_hasChild(Node_T oNParent, Path_T oPPath,
                          size_t *pulChildID) {
+    boolean found;
     assert(oNParent != NULL);
     assert(oPPath != NULL);
     assert(pulChildID != NULL);
 
     if (oNParent->isFileNode)
         return FALSE;
-    
 
-    /* *pulChildID is the index into oNParent->oDChildren */
-    /* checks both the File and Directory DynArrays */
-    return DynArray_bsearch(oNParent->oFileChildren,
-                (char*) Path_getPathname(oPPath), pulChildID,
-                (int (*)(const void*,const void*)) Node_compareString) || 
-                DynArray_bsearch(oNParent->oDirChildren,
-                (char*) Path_getPathname(oPPath), pulChildID,
-                (int (*)(const void*,const void*)) Node_compareString);
+
+    /* Is it a directory child */
+    found = DynArray_bsearch(oNParent->oDirChildren, 
+    (char*) Path_getPathname(oPPath), pulChildID,
+    (int (*)(const void*,const void*)) Node_compareString);
+    
+    if(found == TRUE) return TRUE;
+
+    /* Is it a file child */
+    found = DynArray_bsearch(oNParent->oFileChildren, 
+    (char*) Path_getPathname(oPPath), pulChildID,
+    (int (*)(const void*,const void*)) Node_compareString);
+    
+    if(found == TRUE) return TRUE;
+
+    return FALSE;
 }
 
 /*

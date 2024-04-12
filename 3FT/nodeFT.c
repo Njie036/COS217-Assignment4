@@ -312,7 +312,8 @@ boolean Node_hasChild(Node_T oNParent, Path_T oPPath,
     assert(pulChildID != NULL);
 
     if (oNParent->isFileNode)
-        return NOT_A_DIRECTORY;
+        /*return NOT_A_DIRECTORY; */
+        return oNParent->isFileNode;
     
 
     /* *pulChildID is the index into oNParent->oDChildren */

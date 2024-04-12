@@ -178,7 +178,7 @@ int FT_insertDir(const char *pcPath){
       return iStatus;
 
    /* find the closest ancestor of oPPath already in the tree */
-   iStatus= DT_traversePath(oPPath, &oNCurr);
+   iStatus= FT_traversePath(oPPath, &oNCurr);
    if(iStatus != SUCCESS)
    {
       Path_free(oPPath);
@@ -244,6 +244,12 @@ int FT_insertDir(const char *pcPath){
          oNFirstNew = oNCurr;
       ulIndex++;
    }
+   Path_free(oPPath);
+   /* update DT state variables to reflect insertion */
+   if(oNRoot == NULL)
+      oNRoot = oNFirstNew;
+   ulCount += ulNewNodes;
+   return SUCCESS;
 }
 
 

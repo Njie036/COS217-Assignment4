@@ -49,7 +49,7 @@ static int Node_addChild(Node_T oNParent, Node_T oNChild,
     if (oNChild->isFileNode == TRUE){
         /* Wrong index if node is a file*/
         DynArray_bsearch(oNParent->oFileChildren,
-            (char*) Path_getPathname(oPPath), &ulIndex,
+            (char*) Path_getPathname(oNChild->oPPath), &ulIndex,
             (int (*)(const void*,const void*)) Node_compareString);
         if (DynArray_addAt(oNParent->oFileChildren, ulIndex, oNChild)){
             return SUCCESS;
@@ -284,7 +284,7 @@ boolean Node_hasChild(Node_T oNParent, Path_T oPPath,
     assert(oPPath != NULL);
     assert(pulChildID != NULL);
 
-    if (oNParent->isFile)
+    if (oNParent->isFileNode)
         return NOT_A_DIRECTORY;
     
 

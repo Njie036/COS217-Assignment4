@@ -40,9 +40,8 @@ struct node {
   ulIndex. Returns SUCCESS if the new child was added successfully,
   or  MEMORY_ERROR if allocation fails adding oNChild to the array.
 */
-static int Node_addChild(Node_T oNParent, Node_T oNChild,
-                         size_t ulIndex) {
-
+static int Node_addChild(Node_T oNParent, Node_T oNChild) {
+    size_t ulIndex;
     assert(oNParent != NULL);
     assert(oNChild != NULL);
 
@@ -58,6 +57,9 @@ static int Node_addChild(Node_T oNParent, Node_T oNChild,
             return MEMORY_ERROR;
     }  
 
+    DynArray_bsearch(oNParent->oDirChildren,
+            (char*) Path_getPathname(oNChild->oPPath), &ulIndex,
+            (int (*)(const void*,const void*)) Path_compareString);
     if(DynArray_addAt(oNParent->oDirChildren, ulIndex, oNChild))
         return SUCCESS;
     else
@@ -206,14 +208,16 @@ int Node_new(Path_T oPPath, Node_T oNParent, boolean bIsFile, void *pvContent, s
         psNew->oDirChildren = NULL;
     }
 
-    iStatus = Node_addChild(oNParent, psNew, ulIndex);
-    if(iStatus != SUCCESS) {
-        Path_free(psNew->oPPath);
-        free(psNew);
-        *poNResult = NULL;
-        return iStatus;
+    /* Add the child to its parent if it is not NULL. */
+    if (oNParent != NULL){
+        iStatus = Node_addChild(oNParent, psNew);
+        if(iStatus != SUCCESS) {
+            Path_free(psNew->oPPath);
+            free(psNew);
+            *poNResult = NULL;
+            return iStatus;
+        }
     }
-
     *poNResult = psNew;
     return SUCCESS;  
     

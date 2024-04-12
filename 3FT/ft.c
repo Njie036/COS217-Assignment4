@@ -327,7 +327,6 @@ void *FT_getFileContents(const char *pcPath){
 
 void *FT_replaceFileContents(const char *pcPath, void *pvNewContents, size_t ulNewLength){
     Node_T oNTarget = NULL;
-    void *oldContents = NULL;
     int iStatus;
 
     assert(pcPath != NULL);

@@ -26,7 +26,7 @@ typedef struct node *Node_T;
                  or oNParent is NULL but oPPath is not of depth 1
   * ALREADY_IN_TREE if oNParent already has a child with this path
 */
-int Node_new(Path_T oPPath, Node_T oNParent, bool bIsFile, void *pvContent, size_t ulength, Node_T *poNResult);
+int Node_new(Path_T oPPath, Node_T oNParent, boolean bIsFile, void *pvContent, size_t ulength, Node_T *poNResult);
 
 /*
   Destroys and frees all memory allocated for the subtree rooted at
@@ -64,7 +64,7 @@ size_t Node_getNumDirChildren(Node_T oNParent);
   Otherwise, sets *poNResult to NULL and returns status:
   * NO_SUCH_PATH if ulChildID is not a valid child for oNParent
 */
-int Node_getChild(Node_T oNParent, size_t ulChildID, bool bIsFile,
+int Node_getChild(Node_T oNParent, size_t ulChildID, boolean bIsFile,
                   Node_T *poNResult);
 
 /*

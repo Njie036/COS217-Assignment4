@@ -27,8 +27,6 @@ static Node_T oNRoot;
 /* 3. a counter of the number of nodes in the hierarchy */
 static size_t ulCount;
 
-
-
 /*
   Traverses the FT starting at the root as far as possible towards
   absolute path oPPath. If able to traverse, returns an int SUCCESS
@@ -168,8 +166,6 @@ static int FT_findNode(const char *pcPath, Node_T *poNResult) {
 }
 /*--------------------------------------------------------------------*/
 
-
-
 int FT_insertDir(const char *pcPath){
     int iStatus;
    Path_T oPPath = NULL;
@@ -263,6 +259,7 @@ int FT_insertDir(const char *pcPath){
    return SUCCESS;
 }
 
+/*--------------------------------------------------------------------*/
 
 boolean FT_containsDir(const char *pcPath){
     Node_T oNFound = NULL;
@@ -278,6 +275,8 @@ boolean FT_containsDir(const char *pcPath){
     return (iStatus == SUCCESS && !Node_isFileNode(oNFound));
 
 }
+
+/*--------------------------------------------------------------------*/
 
 int FT_rmDir(const char *pcPath){
     Node_T oNTarget = NULL;
@@ -296,10 +295,10 @@ int FT_rmDir(const char *pcPath){
     else if (Node_isFileNode(oNTarget)) {
         return NOT_A_DIRECTORY;
     }
-
     return iStatus;
-
 }
+
+/*--------------------------------------------------------------------*/
 
 int FT_insertFile(const char *pcPath, void *pvContents, size_t ulLength){
     int iStatus;
@@ -399,6 +398,8 @@ int FT_insertFile(const char *pcPath, void *pvContents, size_t ulLength){
    return SUCCESS;
 }
 
+/*--------------------------------------------------------------------*/
+
 boolean FT_containsFile(const char *pcPath){
      /* If FT contains a file with path pcPath */
     int iStatus;
@@ -418,6 +419,8 @@ boolean FT_containsFile(const char *pcPath){
 
 }
 
+/*--------------------------------------------------------------------*/
+
 int FT_rmFile(const char *pcPath){
 
     Node_T oNTarget = NULL;
@@ -436,13 +439,10 @@ int FT_rmFile(const char *pcPath){
     else if (!Node_isFileNode(oNTarget)) {
         return NOT_A_FILE;
     }
-
     return iStatus;
-
-
-
-
 }
+
+/*--------------------------------------------------------------------*/
 
 void *FT_getFileContents(const char *pcPath){
     
@@ -455,7 +455,8 @@ void *FT_getFileContents(const char *pcPath){
         return NULL;
     }
 
-    if (FT_findNode(pcPath, &oNFound) != SUCCESS || !Node_isFileNode(oNFound)) {
+    if (FT_findNode(pcPath, &oNFound) != SUCCESS || 
+    !Node_isFileNode(oNFound)) {
         return NULL;
     }
     return pvContent;
@@ -474,7 +475,10 @@ void *FT_getFileContents(const char *pcPath){
 
 }
 
-void *FT_replaceFileContents(const char *pcPath, void *pvNewContents, size_t ulNewLength){
+/*--------------------------------------------------------------------*/
+
+void *FT_replaceFileContents(const char *pcPath, void *pvNewContents, 
+        size_t ulNewLength){
     Node_T oNTarget = NULL;
     int iStatus;
 
@@ -491,6 +495,8 @@ void *FT_replaceFileContents(const char *pcPath, void *pvNewContents, size_t ulN
 
     return Node_replaceOldContent(oNTarget, pvNewContents);
 }
+
+/*--------------------------------------------------------------------*/
 
 int FT_stat(const char *pcPath, boolean *pbIsFile, size_t *pulSize){
     Node_T oNFound = NULL;
@@ -513,12 +519,10 @@ int FT_stat(const char *pcPath, boolean *pbIsFile, size_t *pulSize){
     if (*pbIsFile) {
         *pulSize = Node_getFileSize(oNFound);
     }
-
     return SUCCESS;
-
-
 }
 
+/*--------------------------------------------------------------------*/
 
 int FT_init(void){
 
@@ -591,6 +595,7 @@ static size_t FT_preOrderTraversal(Node_T n, DynArray_T d, size_t i) {
     return i;
 }
 
+/*--------------------------------------------------------------------*/
 /*
   Alternate version of strlen that uses pulAcc as an in-out parameter
   to accumulate a string length, rather than returning the length of
@@ -615,6 +620,7 @@ static void FT_strcatAccumulate(Node_T oNNode, char *pcAcc) {
       strcat(pcAcc, "\n");
    }
 }
+
 /*--------------------------------------------------------------------*/
 
 char *FT_toString(void){

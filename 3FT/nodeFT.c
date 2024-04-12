@@ -50,9 +50,10 @@ static int Node_addChild(Node_T oNParent, Node_T oNChild,
         /* Wrong index if node is a file*/
         DynArray_bsearch(oNParent->oFileChildren,
             (char*) Path_getPathname(oPPath), &ulIndex,
-            (int (*)(const void*,const void*)) Node_compareString)
-        if(DynArray_addAt(oNParent->oFileChildren, ulIndex, oNChild))
+            (int (*)(const void*,const void*)) Node_compareString);
+        if (DynArray_addAt(oNParent->oFileChildren, ulIndex, oNChild)){
             return SUCCESS;
+        }
         else
             return MEMORY_ERROR;
     }  

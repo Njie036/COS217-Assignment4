@@ -38,6 +38,8 @@ size_t Node_free(Node_T oNNode);
 /* Returns the path object representing oNNode's absolute path. */
 Path_T Node_getPath(Node_T oNNode);
 
+boolean Node_isFileNode(Node_T oNNode);
+
 /*
   Returns TRUE if oNParent has a child with path oPPath. Returns
   FALSE if it does not.

@@ -276,6 +276,14 @@ Path_T Node_getPath(Node_T oNNode) {
    return oNNode->oPPath;
 }
 
+boolean Node_isFileNode(Node_T oNNode){
+    assert(oNNode != NULL);
+
+   return oNNode->isFileNode;
+
+
+}
+
 
 boolean Node_hasChild(Node_T oNParent, Path_T oPPath,
                          size_t *pulChildID) {

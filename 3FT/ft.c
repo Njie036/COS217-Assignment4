@@ -161,33 +161,33 @@ static int FT_findNode(const char *pcPath, Node_T *poNResult) {
 
 int FT_insertDir(const char *pcPath){
     Node_T oNParent = NULL;
-    Node_T oNNew = NULL;
+    Path_T oPPath = NULL;
+    Node_T oNNewDir = NULL;
     int iStatus;
 
     assert(pcPath != NULL);
 
-    if(!bIsInitialized) {
+    if (!bIsInitialized || pcPath == NULL) {
         return INITIALIZATION_ERROR;
     }
 
-    if(strcmp(pcPath, "/") == 0) {
-        return CONFLICTING_PATH;
-    }
-
     iStatus = FT_findNode(pcPath, &oNParent);
-    if(iStatus == SUCCESS) {
+    if (iStatus == SUCCESS) {
         return ALREADY_IN_TREE;
     }
-    else if(iStatus != NO_SUCH_PATH) {
+
+    iStatus = Path_new(pcPath, &oPPath);
+    if (iStatus != SUCCESS) {
         return iStatus;
     }
 
-    iStatus = Node_new(pcPath, oNParent, FALSE, NULL, 0, &oNNew);
-    if(iStatus != SUCCESS) {
+    iStatus = Node_insertFile(oNRoot, oPPath, &oNNewDir);
+    if (iStatus != SUCCESS) {
+        Path_free(oPPath);
         return iStatus;
     }
 
-    ulCount++;
+    Path_free(oPPath);
     return SUCCESS;
 }
 
@@ -208,50 +208,54 @@ boolean FT_containsDir(const char *pcPath){
 }
 
 int FT_rmDir(const char *pcPath){
-    Node_T oNToRemove = NULL;
+     Node_T oNTarget = NULL;
     int iStatus;
 
     assert(pcPath != NULL);
 
-    if(!bIsInitialized) {
+    if (!bIsInitialized || pcPath == NULL) {
         return INITIALIZATION_ERROR;
     }
 
-    iStatus = FT_findNode(pcPath, &oNToRemove);
-    if(iStatus != SUCCESS || Node_isFileNode(oNToRemove)) {
-        return iStatus;
+    iStatus = FT_findNode(pcPath, &oNTarget);
+    if (iStatus != SUCCESS || Node_isFileNode(oNTarget)) {
+        return NO_SUCH_PATH;
     }
 
-    ulCount -= Node_free(oNToRemove);
-    return SUCCESS;
+    iStatus = FT_rmDir(oNTarget);
+    return iStatus;
 
 }
 
 int FT_insertFile(const char *pcPath, void *pvContents, size_t ulLength){
     Node_T oNParent = NULL;
-    Node_T oNNew = NULL;
+    Path_T oPPath = NULL;
+    Node_T oNNewFile = NULL;
     int iStatus;
 
     assert(pcPath != NULL);
 
-    if(!bIsInitialized) {
+    if (!bIsInitialized || pcPath == NULL) {
         return INITIALIZATION_ERROR;
     }
 
     iStatus = FT_findNode(pcPath, &oNParent);
-    if(iStatus == SUCCESS) {
+    if (iStatus == SUCCESS) {
         return ALREADY_IN_TREE;
     }
-    else if(iStatus != NO_SUCH_PATH) {
+
+    iStatus = Path_new(pcPath, &oPPath);
+    if (iStatus != SUCCESS) {
         return iStatus;
     }
 
-    iStatus = Node_new(pcPath, oNParent, TRUE, pvContents, ulLength, &oNNew);
-    if(iStatus != SUCCESS) {
+    iStatus = Node_insertFile(oNRoot, oPPath, pvContents, ulLength, &oNNewFile);
+    if (iStatus != SUCCESS) {
+        Path_free(oPPath);
         return iStatus;
     }
 
-    ulCount++;
+    Path_free(oPPath);
     return SUCCESS;
 
 }
@@ -297,20 +301,20 @@ int FT_rmFile(const char *pcPath){
 void *FT_getFileContents(const char *pcPath){
     
     Node_T oNFound = NULL;
-    int iStatus;
+    void *pvContent = NULL;
 
-    assert(pcPath != NULL);
+    assert(pcPath != NULL); 
 
     if (!bIsInitialized || pcPath == NULL) {
         return NULL;
     }
 
-    iStatus = FT_findNode(pcPath, &oNFound);
-    if(iStatus != SUCCESS || !Node_isFileNode(oNFound)) {
+    if (FT_findNode(pcPath, &oNFound) != SUCCESS || !Node_isFileNode(oNFound)) {
         return NULL;
     }
 
-    return Node_getContent(oNFound);
+    pvContent = FT_getFileContents(oNFound);
+    return pvContent;
 
     /* Node_T oNFound = NULL;
     // assert(pcPath != NULL); 
@@ -342,7 +346,7 @@ void *FT_replaceFileContents(const char *pcPath, void *pvNewContents, size_t ulN
         return NULL;
     }
 
-    oldContents = FT_replaceFileContents(oNTarget, pvNewContents, ulNewLength);
+    oldContents = Node_replaceFileContents(oNTarget, pvNewContents, ulNewLength);
     return oldContents;
 
 }
@@ -377,9 +381,9 @@ int FT_stat(const char *pcPath, boolean *pbIsFile, size_t *pulSize){
     // Node_T oNFound = NULL;
     // assert(pcPath != NULL);
     // /*assert(pbIsFile != NULL);
-    // assert(pulSize != NULL); */
+    // assert(pulSize != NULL);*/
 
-    /*iStatus = FT_findNode(pcPath, &oNFound);
+    // iStatus = FT_findNode(pcPath, &oNFound);
     // if (iStatus == SUCCESS){
     //     if (oNFound->isFileNode){
     //         pbIsFile = TRUE;

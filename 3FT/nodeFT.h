@@ -60,7 +60,9 @@ size_t Node_getNumFileChildren(Node_T oNParent);
 /* Returns the number of directory children that oNParent has. */
 size_t Node_getNumDirChildren(Node_T oNParent);
 
-
+/*It takes a node oNNode and returns the size of the file. If it is not 
+a file, it returns 0 if it is a directory */
+size_t Node_getFileSize(Node_T oNNode);
 
 /*
   Returns an int SUCCESS status and sets *poNResult to be the child

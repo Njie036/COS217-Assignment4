@@ -230,6 +230,12 @@ void *Node_replaceOldContent(Node_T oNNode, void *newContent) {
 }
 
 
+size_t Node_getFileSize(Node_T oNNode){
+    assert(oNNode != NULL);
+
+    return oNNode->ulength;
+}
+
 size_t Node_free(Node_T oNNode){
     size_t ulIndex;
     size_t ulCount = 0;

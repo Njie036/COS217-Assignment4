@@ -285,13 +285,16 @@ int FT_rmDir(const char *pcPath){
 
     assert(pcPath != NULL);
 
-    if (!bIsInitialized || pcPath == NULL) {
+    if (!bIsInitialized) {
         return INITIALIZATION_ERROR;
     }
 
     iStatus = FT_findNode(pcPath, &oNTarget);
-    if (iStatus != SUCCESS || Node_isFileNode(oNTarget)) {
+    if (iStatus != SUCCESS) {
         return NO_SUCH_PATH;
+    }
+    else if (Node_isFileNode(oNTarget)) {
+        return NOT_A_DIRECTORY;
     }
 
     return iStatus;
@@ -416,20 +419,26 @@ boolean FT_containsFile(const char *pcPath){
 }
 
 int FT_rmFile(const char *pcPath){
+
     Node_T oNTarget = NULL;
     int iStatus;
 
     assert(pcPath != NULL);
 
-    if (!bIsInitialized || pcPath == NULL) {
+    if (!bIsInitialized) {
         return INITIALIZATION_ERROR;
     }
 
     iStatus = FT_findNode(pcPath, &oNTarget);
-    if (iStatus != SUCCESS || !Node_isFileNode(oNTarget)) {
+    if (iStatus != SUCCESS) {
         return NO_SUCH_PATH;
     }
+    else if (!Node_isFileNode(oNTarget)) {
+        return NOT_A_FILE;
+    }
+
     return iStatus;
+
 
 
 

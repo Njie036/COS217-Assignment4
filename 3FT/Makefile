@@ -9,7 +9,7 @@ clobber: clean
 
 # File Target
 ft: ft.o ft_client.o nodeFT.o dynarray.o path.o
-	gcc217 -g ft.o ft_client.o nodeFT.o dynarray.o path.o
+	gcc217 -g ft.o ft_client.o nodeFT.o dynarray.o path.o -o ft
 
 ft.o: ft.c dynarray.h path.h a4def.h ft.h nodeFT.h
 	gcc217 -g -c ft.c

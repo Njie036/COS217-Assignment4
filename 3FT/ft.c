@@ -1,6 +1,6 @@
 /*--------------------------------------------------------------------*/
 /* ft.c                                                               */
-/* Author: Isaac Gyamfi and Ndongo Njie                                       */
+/* Author: Isaac Gyamfi and Ndongo Njie                               */
 /*--------------------------------------------------------------------*/
 
 #include <stddef.h>
@@ -13,7 +13,6 @@
 #include "path.h"
 #include "nodeFT.h"
 #include "ft.h"
-
 
 
 /*
@@ -161,62 +160,245 @@ static int FT_findNode(const char *pcPath, Node_T *poNResult) {
 
 
 int FT_insertDir(const char *pcPath){
-    
+    Node_T oNParent = NULL;
+    Path_T oPPath = NULL;
+    Node_T oNNewDir = NULL;
+    int iStatus;
 
+    assert(pcPath != NULL);
+
+    if (!bIsInitialized || pcPath == NULL) {
+        return INITIALIZATION_ERROR;
+    }
+
+    iStatus = FT_findNode(pcPath, &oNParent);
+    if (iStatus == SUCCESS) {
+        return ALREADY_IN_TREE;
+    }
+
+    iStatus = Path_new(pcPath, &oPPath);
+    if (iStatus != SUCCESS) {
+        return iStatus;
+    }
+
+    iStatus = Node_insertDir(oNRoot, oPPath, &oNNewDir);
+    if (iStatus != SUCCESS) {
+        Path_free(oPPath);
+        return iStatus;
+    }
+
+    Path_free(oPPath);
+    return SUCCESS;
 }
 
+
 boolean FT_containsDir(const char *pcPath){
+    Node_T oNFound = NULL;
+    int iStatus;
+
+    assert(pcPath != NULL);
+
+    if (!bIsInitialized || pcPath == NULL) {
+        return FALSE;
+    }
+
+    iStatus = FT_findNode(pcPath, &oNFound);
+    return (iStatus == SUCCESS && !Node_isFileNode(oNFound));
 
 }
 
 int FT_rmDir(const char *pcPath){
+     Node_T oNTarget = NULL;
+    int iStatus;
+
+    assert(pcPath != NULL);
+
+    if (!bIsInitialized || pcPath == NULL) {
+        return INITIALIZATION_ERROR;
+    }
+
+    iStatus = FT_findNode(pcPath, &oNTarget);
+    if (iStatus != SUCCESS || Node_isFileNode(oNTarget)) {
+        return NO_SUCH_PATH;
+    }
+
+    iStatus = Node_removeDir(oNTarget);
+    return iStatus;
 
 }
 
 int FT_insertFile(const char *pcPath, void *pvContents, size_t ulLength){
+    Node_T oNParent = NULL;
+    Path_T oPPath = NULL;
+    Node_T oNNewFile = NULL;
+    int iStatus;
+
+    assert(pcPath != NULL);
+
+    if (!bIsInitialized || pcPath == NULL) {
+        return INITIALIZATION_ERROR;
+    }
+
+    iStatus = FT_findNode(pcPath, &oNParent);
+    if (iStatus == SUCCESS) {
+        return ALREADY_IN_TREE;
+    }
+
+    iStatus = Path_new(pcPath, &oPPath);
+    if (iStatus != SUCCESS) {
+        return iStatus;
+    }
+
+    iStatus = Node_insertFile(oNRoot, oPPath, pvContents, ulLength, &oNNewFile);
+    if (iStatus != SUCCESS) {
+        Path_free(oPPath);
+        return iStatus;
+    }
+
+    Path_free(oPPath);
+    return SUCCESS;
 
 }
 
 boolean FT_containsFile(const char *pcPath){
+     /* If FT contains a file with path pcPath */
+    int iStatus;
+    Node_T oNFound = NULL;
+
+    assert(pcPath != NULL);
+
+    if (!bIsInitialized || pcPath == NULL) {
+        return FALSE;
+    }
+
+    iStatus = FT_findNode(pcPath, &oNFound);
+    return (iStatus == SUCCESS);
 
 }
 
 int FT_rmFile(const char *pcPath){
+    Node_T oNTarget = NULL;
+    int iStatus;
+
+    assert(pcPath != NULL);
+
+    if (!bIsInitialized || pcPath == NULL) {
+        return INITIALIZATION_ERROR;
+    }
+
+    iStatus = FT_findNode(pcPath, &oNTarget);
+    if (iStatus != SUCCESS || !Node_isFileNode(oNTarget)) {
+        return NO_SUCH_PATH;
+    }
+
+    iStatus = Node_removeFile(oNTarget);
+    return iStatus;
+
 
 
 }
 
 void *FT_getFileContents(const char *pcPath){
+    
+    Node_T oNFound = NULL;
+    void *pvContent = NULL;
+
+    assert(pcPath != NULL); 
+
+    if (!bIsInitialized || pcPath == NULL) {
+        return NULL;
+    }
+
+    if (FT_findNode(pcPath, &oNFound) != SUCCESS || !Node_isFileNode(oNFound)) {
+        return NULL;
+    }
+
+    pvContent = Node_getFileContents(oNFound);
+    return pvContent;
+
+    /* Node_T oNFound = NULL;
+    // assert(pcPath != NULL); 
+    // void *pvContent;
+
+    // if (!bIsInitialized || pcPath == NULL) {
+    //     return NULL;
+    // }
+
+    // if (FT_findNode(pcPath, &oNFound) == NULL);
+    // pvContent = oNFound->content;
+    // return pvContent; */ 
 
 }
 
 void *FT_replaceFileContents(const char *pcPath, void *pvNewContents, size_t ulNewLength){
+    Node_T oNTarget = NULL;
+    void *oldContents = NULL;
+    int iStatus;
+
+    assert(pcPath != NULL);
+
+    if (!bIsInitialized || pcPath == NULL) {
+        return NULL;
+    }
+
+    iStatus = FT_findNode(pcPath, &oNTarget);
+    if (iStatus != SUCCESS || !Node_isFileNode(oNTarget)) {
+        return NULL;
+    }
+
+    oldContents = Node_replaceFileContents(oNTarget, pvNewContents, ulNewLength);
+    return oldContents;
 
 }
 
 int FT_stat(const char *pcPath, boolean *pbIsFile, size_t *pulSize){
-    int iStatus;
     Node_T oNFound = NULL;
+    int iStatus;
+
     assert(pcPath != NULL);
-    /*assert(pbIsFile != NULL);
-    assert(pulSize != NULL);*/
+    assert(pbIsFile != NULL);
+    assert(pulSize != NULL);
+
+    if (!bIsInitialized || pcPath == NULL) {
+        return INITIALIZATION_ERROR;
+    }
 
     iStatus = FT_findNode(pcPath, &oNFound);
-    if (iStatus == SUCCESS){
-        if (oNFound->isFileNode){
-            pbIsFile = TRUE;
-            pulSize = oNFound->ulength;
-            return iStatus;
-        }
-        pbIsFile = FALSE;
+    if (iStatus != SUCCESS) {
         return iStatus;
     }
-    return iStatus; 
+
+    *pbIsFile = Node_isFileNode(oNFound);
+    if (*pbIsFile) {
+        *pulSize = Node_getFileSize(oNFound);
+    }
+
+    return SUCCESS;
+    
+    
+    
+    /* int iStatus;
+    // Node_T oNFound = NULL;
+    // assert(pcPath != NULL);
+    // /*assert(pbIsFile != NULL);
+    // assert(pulSize != NULL);*/
+
+    // iStatus = FT_findNode(pcPath, &oNFound);
+    // if (iStatus == SUCCESS){
+    //     if (oNFound->isFileNode){
+    //         pbIsFile = TRUE;
+    //         pulSize = oNFound->ulength;
+    //         return iStatus;
+    //     }
+    //     pbIsFile = FALSE;
+    //     return iStatus;
+    // }
+    // return iStatus; */
+
 
 }
 
 int FT_init(void){
-    assert(CheckerFT_isValid(bIsInitialized, oNRoot, ulCount));
 
     if(bIsInitialized)
         return INITIALIZATION_ERROR;

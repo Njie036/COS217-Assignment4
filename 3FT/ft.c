@@ -221,7 +221,7 @@ int FT_rmDir(const char *pcPath){
     if (iStatus != SUCCESS || Node_isFileNode(oNTarget)) {
         return NO_SUCH_PATH;
     }
-    
+
     return iStatus;
 
 }
@@ -289,8 +289,6 @@ int FT_rmFile(const char *pcPath){
     if (iStatus != SUCCESS || !Node_isFileNode(oNTarget)) {
         return NO_SUCH_PATH;
     }
-
-    iStatus = Node_removeFile(oNTarget);
     return iStatus;
 
 
@@ -311,8 +309,6 @@ void *FT_getFileContents(const char *pcPath){
     if (FT_findNode(pcPath, &oNFound) != SUCCESS || !Node_isFileNode(oNFound)) {
         return NULL;
     }
-
-    pvContent = FT_getFileContents(oNFound);
     return pvContent;
 
     /* Node_T oNFound = NULL;

@@ -288,26 +288,7 @@ boolean FT_containsDir(const char *pcPath){
 /*--------------------------------------------------------------------*/
 
 int FT_rmDir(const char *pcPath){
-    Node_T oNTarget = NULL;
     int iStatus;
-
-    assert(pcPath != NULL);
-
-    if (!bIsInitialized) {
-        return INITIALIZATION_ERROR;
-    }
-
-    iStatus = FT_findNode(pcPath, &oNTarget);
-    if (iStatus != SUCCESS) {
-        return NO_SUCH_PATH;
-    }
-    else if (Node_isFileNode(oNTarget)) {
-        return NOT_A_DIRECTORY;
-    }
-    return iStatus;
-
-
-     int iStatus;
     Node_T oNFound = NULL;
 
    assert(pcPath != NULL);

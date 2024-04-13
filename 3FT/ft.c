@@ -281,7 +281,13 @@ boolean FT_containsDir(const char *pcPath){
     }
 
     iStatus = FT_findNode(pcPath, &oNFound);
-    return (iStatus == SUCCESS && !Node_isFileNode(oNFound));
+    if (iStatus != SUCCESS){
+        return FALSE;
+    }
+    if (Node_isFileNode(oNFound) == FALSE) {
+        return TRUE;
+    }
+    else return FALSE;
 
 }
 
@@ -423,11 +429,13 @@ boolean FT_containsFile(const char *pcPath){
     }
 
     iStatus = FT_findNode(pcPath, &oNFound);
-    if (oNFound != NULL || !Node_isFileNode(oNFound)) {
+    if (iStatus != SUCCESS){
         return FALSE;
     }
-    return (iStatus == SUCCESS);
-
+    if (Node_isFileNode(oNFound) == TRUE) {
+        return TRUE;
+    }
+    else return FALSE;
 }
 
 /*--------------------------------------------------------------------*/

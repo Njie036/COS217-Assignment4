@@ -304,8 +304,8 @@ int FT_rmDir(const char *pcPath){
     return INITIALIZATION_ERROR;
    }
 
-   iStatus = FT_findNode(pcPath, &oNFound);
-    if (oNFound == NULL){
+    iStatus = FT_findNode(pcPath, &oNFound);
+    if (oNRoot == NULL){
         return NO_SUCH_PATH;
     }
 

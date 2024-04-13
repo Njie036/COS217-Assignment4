@@ -417,28 +417,51 @@ int FT_insertFile(const char *pcPath, void *pvContents, size_t ulLength){
 
 /*--------------------------------------------------------------------*/
 
-boolean FT_containsFile(const char *pcPath){
-     /* If FT contains a file with path pcPath */
+boolean FT_containsFile(const char *pcPath) {
     int iStatus;
     Node_T oNFound = NULL;
 
     assert(pcPath != NULL);
 
     if (!bIsInitialized) {
-        return FALSE;
+        return FALSE; 
     }
 
     iStatus = FT_findNode(pcPath, &oNFound);
-    if (iStatus != SUCCESS){
+    if (iStatus != SUCCESS) {
         return FALSE;
     }
-    if (Node_isFileNode(oNFound) == TRUE) {
-        return TRUE;
-    }
-    else{
-        return FALSE;
-    }
+
+    return Node_isFileNode(oNFound);
 }
+
+
+
+
+
+/*
+#include <stdbool.h>
+
+bool FT_containsFile(const char *pcPath) {
+    int iStatus;
+    Node_T oNFound = NULL;
+
+    assert(pcPath != NULL);
+
+    if (!bIsInitialized) {
+        return false; // or FALSE if you have defined it
+    }
+
+    iStatus = FT_findNode(pcPath, &oNFound);
+    if (iStatus != SUCCESS) {
+        return false; // or FALSE if you have defined it
+    }
+
+    return Node_isFileNode(oNFound);
+}
+
+
+*/ 
 
 /*--------------------------------------------------------------------*/
 

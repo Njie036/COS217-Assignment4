@@ -142,6 +142,9 @@ static int FT_findNode(const char *pcPath, Node_T *poNResult) {
         *poNResult = NULL;
         return INITIALIZATION_ERROR;
     }
+    if (ulCount == 0){
+        return NO_SUCH_PATH;
+    }
 
     iStatus = Path_new(pcPath, &oPPath);
     if(iStatus != SUCCESS) {

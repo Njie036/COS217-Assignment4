@@ -381,7 +381,7 @@ int  Node_getChild(Node_T oNParent, size_t ulChildID, boolean bIsFile,
             return SUCCESS;
         }
     }
-    if(ulChildID >=DynArray_getLength(oNParent->oDirChildren)) {
+    else if(ulChildID >=DynArray_getLength(oNParent->oDirChildren)) {
         *poNResult = NULL;
         return NO_SUCH_PATH;
     }

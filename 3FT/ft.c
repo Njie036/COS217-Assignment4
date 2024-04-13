@@ -432,8 +432,8 @@ boolean FT_containsFile(const char *pcPath){
     if (iStatus != SUCCESS){
         return FALSE;
     }
-    if (Node_isFileNode(oNFound) == TRUE) {
-        return TRUE;
+    if (!Node_isFileNode(oNFound) == FALSE) {
+        return FALSE;
     }
     else return (boolean)iStatus;
 }

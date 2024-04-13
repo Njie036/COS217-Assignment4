@@ -455,9 +455,11 @@ int FT_rmFile(const char *pcPath){
     if (iStatus != SUCCESS) {
         return NO_SUCH_PATH;
     }
-    else if (!Node_isFileNode(oNTarget)) {
+    if (!Node_isFileNode(oNTarget)) {
         return NOT_A_FILE;
     }
+    ulCount -= Node_free(oNTarget);
+
     return iStatus;
 }
 

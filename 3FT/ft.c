@@ -209,7 +209,7 @@ int FT_insertDir(const char *pcPath){
    }
 
    /* Make sure ancestor is not a file */
-   if (oNCurr != NULL && Node_isFileNode(&oNCurr)) {
+   if (oNCurr != NULL && Node_isFileNode(oNCurr)) {
         Path_free(oPPath);
         return NOT_A_DIRECTORY;
    }
@@ -281,7 +281,7 @@ boolean FT_containsDir(const char *pcPath){
     }
 
     iStatus = FT_findNode(pcPath, &oNFound);
-    return (iStatus == SUCCESS && !Node_isFileNode(&oNFound));
+    return (iStatus == SUCCESS && !Node_isFileNode(oNFound));
 
 }
 
@@ -298,7 +298,7 @@ int FT_rmDir(const char *pcPath){
    if(iStatus != SUCCESS) {
         return iStatus;
         }
-    else if (Node_isFileNode(&oNFound)) {
+    else if (Node_isFileNode(oNFound)) {
         return NOT_A_DIRECTORY;
     }
 
@@ -345,7 +345,7 @@ int FT_insertFile(const char *pcPath, void *pvContents, size_t ulLength){
    }
 
    /* Make sure ancestor is not a file */
-   if (oNCurr != NULL && Node_isFileNode(&oNCurr)) {
+   if (oNCurr != NULL && Node_isFileNode(oNCurr)) {
         Path_free(oPPath);
         return NOT_A_DIRECTORY;
    }
@@ -423,7 +423,7 @@ boolean FT_containsFile(const char *pcPath){
     }
 
     iStatus = FT_findNode(pcPath, &oNFound);
-    if (oNFound != NULL || !Node_isFileNode(&oNFound)) {
+    if (oNFound != NULL || !Node_isFileNode(oNFound)) {
         return FALSE;
     }
     return (iStatus == SUCCESS);
@@ -447,7 +447,7 @@ int FT_rmFile(const char *pcPath){
     if (iStatus != SUCCESS) {
         return NO_SUCH_PATH;
     }
-    else if (!Node_isFileNode(&oNTarget)) {
+    else if (!Node_isFileNode(oNTarget)) {
         return NOT_A_FILE;
     }
     return iStatus;
@@ -467,7 +467,7 @@ void *FT_getFileContents(const char *pcPath){
     }
 
     if (FT_findNode(pcPath, &oNFound) != SUCCESS || 
-    !Node_isFileNode(&oNFound)) {
+    !Node_isFileNode(oNFound)) {
         return NULL;
     }
     return pvContent;
@@ -500,7 +500,7 @@ void *FT_replaceFileContents(const char *pcPath, void *pvNewContents,
     }
 
     iStatus = FT_findNode(pcPath, &oNTarget);
-    if (iStatus != SUCCESS || !Node_isFileNode(&oNTarget)) {
+    if (iStatus != SUCCESS || !Node_isFileNode(oNTarget)) {
         return NULL;
     }
 
@@ -526,7 +526,7 @@ int FT_stat(const char *pcPath, boolean *pbIsFile, size_t *pulSize){
         return iStatus;
     }
 
-    *pbIsFile = Node_isFileNode(&oNFound);
+    *pbIsFile = Node_isFileNode(oNFound);
     if (*pbIsFile) {
         *pulSize = Node_getFileSize(oNFound);
     }

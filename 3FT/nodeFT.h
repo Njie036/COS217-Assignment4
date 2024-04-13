@@ -40,6 +40,8 @@ void *Node_replaceOldContent(Node_T oNNode, void *newContent);
 /* Returns the path object representing oNNode's absolute path. */
 Path_T Node_getPath(Node_T oNNode);
 
+/* Checks if it is file. Takes oNNode as an argument and return TRUE 
+when the node is a file but FALSE otherwiae. */
 boolean Node_isFileNode(Node_T oNNode);
 
 /*

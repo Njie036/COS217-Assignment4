@@ -64,7 +64,7 @@ static int Node_addChild(Node_T oNParent, Node_T oNChild) {
         /* Wrong index if node is a file*/
         DynArray_bsearch(oNParent->oFileChildren,
             (char*) Path_getPathname(oNChild->oPPath), &ulIndex,
-            (int (*)(const void*,const void*)) Path_compareString);
+            (int (*)(const void*,const void*)) Node_compareString);
         if (DynArray_addAt(oNParent->oFileChildren, ulIndex, oNChild)){
             return SUCCESS;
         }
@@ -74,7 +74,7 @@ static int Node_addChild(Node_T oNParent, Node_T oNChild) {
 
     DynArray_bsearch(oNParent->oDirChildren,
             (char*) Path_getPathname(oNChild->oPPath), &ulIndex,
-            (int (*)(const void*,const void*)) Path_compareString);
+            (int (*)(const void*,const void*)) Node_compareString);
     if(DynArray_addAt(oNParent->oDirChildren, ulIndex, oNChild))
         return SUCCESS;
     else

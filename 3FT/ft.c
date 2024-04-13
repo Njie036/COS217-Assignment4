@@ -295,8 +295,12 @@ int FT_rmDir(const char *pcPath){
 
    iStatus = FT_findNode(pcPath, &oNFound);
 
-   if(iStatus != SUCCESS)
-       return iStatus;
+   if(iStatus != SUCCESS) {
+        return iStatus;
+        }
+    else if (Node_isFileNode(oNFound)) {
+        return NOT_A_DIRECTORY;
+    }
 
    ulCount -= Node_free(oNFound);
    if(ulCount == 0)

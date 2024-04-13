@@ -34,6 +34,21 @@ struct node {
 
 };
 
+/*
+  Compares the string representation of oNfirst with a string
+  pcSecond representing a node's path.
+  Returns <0, 0, or >0 if oNFirst is "less than", "equal to", or
+  "greater than" pcSecond, respectively.
+*/
+static int Node_compareString(const Node_T oNFirst,
+                                 const char *pcSecond) {
+   assert(oNFirst != NULL);
+   assert(pcSecond != NULL);
+
+   return Path_compareString(oNFirst->oPPath, pcSecond);
+}
+
+
 
 /*
   Links new child oNChild into oNParent's children array at index
@@ -66,20 +81,6 @@ static int Node_addChild(Node_T oNParent, Node_T oNChild) {
         return MEMORY_ERROR;
 }
 
-
-/*
-  Compares the string representation of oNfirst with a string
-  pcSecond representing a node's path.
-  Returns <0, 0, or >0 if oNFirst is "less than", "equal to", or
-  "greater than" pcSecond, respectively.
-*/
-static int Node_compareString(const Node_T oNFirst,
-                                 const char *pcSecond) {
-   assert(oNFirst != NULL);
-   assert(pcSecond != NULL);
-
-   return Path_compareString(oNFirst->oPPath, pcSecond);
-}
 
 
 /*

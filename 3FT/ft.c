@@ -450,18 +450,6 @@ int FT_rmFile(const char *pcPath){
 
    iStatus = FT_findNode(pcPath, &oNFound);
 
-<<<<<<< HEAD
-    iStatus = FT_findNode(pcPath, &oNTarget);
-    if (iStatus != SUCCESS) {
-        return NO_SUCH_PATH;
-    }
-    if (!Node_isFileNode(oNTarget)) {
-        return NOT_A_FILE;
-    }
-    ulCount -= Node_free(oNTarget);
-
-    return iStatus;
-=======
    if(iStatus != SUCCESS) {
         return iStatus;
         }
@@ -474,7 +462,6 @@ int FT_rmFile(const char *pcPath){
       oNRoot = NULL;
 
    return SUCCESS;
->>>>>>> 747022f5d1eec76b7166dddf40d9a23b4cd63f71
 }
 
 /*--------------------------------------------------------------------*/

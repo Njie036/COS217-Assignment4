@@ -303,6 +303,9 @@ int FT_rmDir(const char *pcPath){
    iStatus = FT_findNode(pcPath, &oNFound);
 
    if(iStatus != SUCCESS) {
+        if (oNFound == NULL){
+            return NO_SUCH_PATH;
+        }
         return iStatus;
     }
     else if (Node_isFileNode(oNFound)) {

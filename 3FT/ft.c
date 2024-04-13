@@ -300,6 +300,10 @@ int FT_rmDir(const char *pcPath){
 
    assert(pcPath != NULL);
 
+   if(!bIsInitialized){
+    return INITIALIZATION_ERROR;
+   }
+
    iStatus = FT_findNode(pcPath, &oNFound);
     if (oNFound == NULL){
         return NO_SUCH_PATH;

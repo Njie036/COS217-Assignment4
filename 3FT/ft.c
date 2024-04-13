@@ -51,7 +51,7 @@ static int FT_traversePath(Path_T oPPath, Node_T *poNFurthest) {
     /* root is NULL -> won't find anything */
     if(oNRoot == NULL) {
         *poNFurthest = NULL;
-        return SUCCESS;
+        return NO_SUCH_PATH; /*just changed this*/
     }
 
     iStatus = Path_prefix(oPPath, 1, &oPPrefix);
@@ -142,9 +142,7 @@ static int FT_findNode(const char *pcPath, Node_T *poNResult) {
         *poNResult = NULL;
         return INITIALIZATION_ERROR;
     }
-    if (ulCount == 0){
-        return NO_SUCH_PATH;
-    }
+    
 
     iStatus = Path_new(pcPath, &oPPath);
     if(iStatus != SUCCESS) {
@@ -306,7 +304,7 @@ int FT_rmDir(const char *pcPath){
 
    if(iStatus != SUCCESS) {
         return iStatus;
-        }
+    }
     else if (Node_isFileNode(oNFound)) {
         return NOT_A_DIRECTORY;
     }

@@ -443,24 +443,25 @@ boolean FT_containsFile(const char *pcPath){
 /*--------------------------------------------------------------------*/
 
 int FT_rmFile(const char *pcPath){
-
-    Node_T oNTarget = NULL;
     int iStatus;
+    Node_T oNFound = NULL;
 
-    assert(pcPath != NULL);
+   assert(pcPath != NULL);
 
-    if (!bIsInitialized) {
-        return INITIALIZATION_ERROR;
-    }
+   iStatus = FT_findNode(pcPath, &oNFound);
 
-    iStatus = FT_findNode(pcPath, &oNTarget);
-    if (iStatus != SUCCESS) {
-        return NO_SUCH_PATH;
-    }
-    else if (!Node_isFileNode(oNTarget)) {
+   if(iStatus != SUCCESS) {
+        return iStatus;
+        }
+    else if (!Node_isFileNode(oNFound)) {
         return NOT_A_FILE;
     }
-    return iStatus;
+
+   ulCount -= Node_free(oNFound);
+   if(ulCount == 0)
+      oNRoot = NULL;
+
+   return SUCCESS;
 }
 
 /*--------------------------------------------------------------------*/

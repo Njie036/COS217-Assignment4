@@ -424,7 +424,7 @@ boolean FT_containsFile(const char *pcPath){
 
     assert(pcPath != NULL);
 
-    if (!bIsInitialized || pcPath == NULL) {
+    if (!bIsInitialized) {
         return FALSE;
     }
 
@@ -435,22 +435,22 @@ boolean FT_containsFile(const char *pcPath){
     if (Node_isFileNode(oNFound) == TRUE) {
         return TRUE;
     }
-    else return FALSE;
+    else{
+        return FALSE;
+    }
 }
 
 /*--------------------------------------------------------------------*/
 
 int FT_rmFile(const char *pcPath){
-
-    Node_T oNTarget = NULL;
     int iStatus;
+    Node_T oNFound = NULL;
 
-    assert(pcPath != NULL);
+   assert(pcPath != NULL);
 
-    if (!bIsInitialized) {
-        return INITIALIZATION_ERROR;
-    }
+   iStatus = FT_findNode(pcPath, &oNFound);
 
+<<<<<<< HEAD
     iStatus = FT_findNode(pcPath, &oNTarget);
     if (iStatus != SUCCESS) {
         return NO_SUCH_PATH;
@@ -461,6 +461,20 @@ int FT_rmFile(const char *pcPath){
     ulCount -= Node_free(oNTarget);
 
     return iStatus;
+=======
+   if(iStatus != SUCCESS) {
+        return iStatus;
+        }
+    else if (!Node_isFileNode(oNFound)) {
+        return NOT_A_FILE;
+    }
+
+   ulCount -= Node_free(oNFound);
+   if(ulCount == 0)
+      oNRoot = NULL;
+
+   return SUCCESS;
+>>>>>>> 747022f5d1eec76b7166dddf40d9a23b4cd63f71
 }
 
 /*--------------------------------------------------------------------*/

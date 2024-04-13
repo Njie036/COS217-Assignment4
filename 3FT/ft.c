@@ -620,7 +620,6 @@ static void FT_strcatAccumulate(Node_T oNNode, char *pcAcc) {
       strcat(pcAcc, "\n");
    }
 }
-
 /*--------------------------------------------------------------------*/
 
 char *FT_toString(void){

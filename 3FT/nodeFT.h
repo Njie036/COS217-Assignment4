@@ -64,6 +64,14 @@ size_t Node_getNumDirChildren(Node_T oNParent);
 a file, it returns 0 if it is a directory */
 size_t Node_getFileSize(Node_T oNNode);
 
+
+boolean Node_hasDirChild(Node_T oNParent, Path_T oPPath,
+                         size_t *pulChildID);
+
+
+boolean Node_hasFileChild(Node_T oNParent, Path_T oPPath,
+                         size_t *pulChildID);
+
 /*
   Returns an int SUCCESS status and sets *poNResult to be the child
   node of oNParent with identifier ulChildID, if one exists.

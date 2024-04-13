@@ -305,7 +305,7 @@ boolean Node_isFileNode(Node_T oNNode){
 }
 
 
-boolean Node_hasChild(Node_T oNParent, Path_T oPPath,
+boolean Node_hasDirChild(Node_T oNParent, Path_T oPPath,
                          size_t *pulChildID) {
     boolean found;
     assert(oNParent != NULL);
@@ -323,6 +323,20 @@ boolean Node_hasChild(Node_T oNParent, Path_T oPPath,
     
     if(found == TRUE) return TRUE;
 
+    return FALSE;
+}
+
+
+boolean Node_hasFileChild(Node_T oNParent, Path_T oPPath,
+                         size_t *pulChildID) {
+    boolean found;
+    assert(oNParent != NULL);
+    assert(oPPath != NULL);
+    assert(pulChildID != NULL);
+
+    if (oNParent->isFileNode)
+        return FALSE;
+
     /* Is it a file child */
     found = DynArray_bsearch(oNParent->oFileChildren, 
     (char*) Path_getPathname(oPPath), pulChildID,
@@ -332,7 +346,6 @@ boolean Node_hasChild(Node_T oNParent, Path_T oPPath,
 
     return FALSE;
 }
-
 /*
 size_t Node_getNumChildren(Node_T oNParent) {
     size_t numofChildren;

@@ -51,7 +51,7 @@ static int FT_traversePath(Path_T oPPath, Node_T *poNFurthest) {
     /* root is NULL -> won't find anything */
     if(oNRoot == NULL) {
         *poNFurthest = NULL;
-        return NO_SUCH_PATH; /*just changed this*/
+        return SUCCESS; /*just changed this*/
     }
 
     iStatus = Path_prefix(oPPath, 1, &oPPrefix);

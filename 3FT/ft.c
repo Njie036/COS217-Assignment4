@@ -305,6 +305,23 @@ int FT_rmDir(const char *pcPath){
         return NOT_A_DIRECTORY;
     }
     return iStatus;
+
+
+     int iStatus;
+    Node_T oNFound = NULL;
+
+   assert(pcPath != NULL);
+
+   iStatus = FT_findNode(pcPath, &oNFound);
+
+   if(iStatus != SUCCESS)
+       return iStatus;
+
+   ulCount -= Node_free(oNFound);
+   if(ulCount == 0)
+      oNRoot = NULL;
+
+   return SUCCESS;
 }
 
 /*--------------------------------------------------------------------*/

@@ -424,7 +424,7 @@ boolean FT_containsFile(const char *pcPath){
 
     assert(pcPath != NULL);
 
-    if (!bIsInitialized || pcPath == NULL) {
+    if (!bIsInitialized) {
         return FALSE;
     }
 
@@ -435,7 +435,7 @@ boolean FT_containsFile(const char *pcPath){
     if (Node_isFileNode(oNFound) == TRUE) {
         return TRUE;
     }
-    else return FALSE;
+    else return (boolean)iStatus;
 }
 
 /*--------------------------------------------------------------------*/

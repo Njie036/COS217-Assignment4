@@ -300,6 +300,9 @@ int FT_rmDir(const char *pcPath){
 
    assert(pcPath != NULL);
 
+   if(!bIsInitialized){
+    return INITIALIZATION_ERROR;
+   }
 
    if (oNRoot == NULL){
         return NO_SUCH_PATH;

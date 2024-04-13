@@ -300,9 +300,7 @@ Path_T Node_getPath(Node_T oNNode) {
 boolean Node_isFileNode(Node_T oNNode){
     assert(oNNode != NULL);
 
-   return oNNode->isFileNode;
-
-
+    return oNNode->isFileNode;
 }
 
 

@@ -522,7 +522,7 @@ void *FT_replaceFileContents(const char *pcPath, void *pvNewContents,
         return NULL;
     }
 
-    return Node_replaceOldContent(oNTarget, pvNewContents);
+    return Node_replaceOldContent(oNTarget, pvNewContents, ulNewLength);
 }
 
 /*--------------------------------------------------------------------*/

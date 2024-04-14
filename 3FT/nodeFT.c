@@ -224,12 +224,14 @@ int Node_new(Path_T oPPath, Node_T oNParent, boolean bIsFile, void *pvContent, s
     
 }
 
-void *Node_replaceOldContent(Node_T oNNode, void *newContent) {
+void *Node_replaceOldContent(Node_T oNNode, void *newContent, size_t length) {
     void *oldContents = NULL;
+    length = 0;
     assert(oNNode != NULL);
 
     oldContents = oNNode->content;
     oNNode->content = newContent;
+    oNNode->ulength = length;
 
     return oldContents;
 }

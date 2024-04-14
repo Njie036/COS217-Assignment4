@@ -60,7 +60,6 @@ static int FT_traversePath(Path_T oPPath, Node_T *poNFurthest) {
         return iStatus;
     }
 
-    assert(oNRoot!=NULL);
     if(Path_comparePath(Node_getPath(oNRoot), oPPrefix)) {
         Path_free(oPPrefix);
         *poNFurthest = NULL;

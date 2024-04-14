@@ -47,18 +47,6 @@ boolean Node_isFileNode(Node_T oNNode);
 /*Takes a node and return its content */
 void *Node_getFileContent(Node_T oNNode);
 
-/*
-  Returns TRUE if oNParent has a child with path oPPath. Returns
-  FALSE if it does not.
-
-  If oNParent has such a child, stores in *pulChildID the child's
-  identifier (as used in Node_getChild). If oNParent does not have
-  such a child, stores in *pulChildID the identifier that such a
-  child _would_ have if inserted.
-*/
-boolean Node_hasChild(Node_T oNParent, Path_T oPPath,
-                         size_t *pulChildID);
-
 /* Returns the number of file children that oNParent has. */
 size_t Node_getNumFileChildren(Node_T oNParent);
 
@@ -69,11 +57,28 @@ size_t Node_getNumDirChildren(Node_T oNParent);
 a file, it returns 0 if it is a directory */
 size_t Node_getFileSize(Node_T oNNode);
 
+/*
+  Returns TRUE if oNParent has a directory Child with path oPPath.
+  Returns FALSE if it does not.
 
+  If oNParent has such a child, stores in *pulChildID the child's
+  identifier (as used in Node_getChild). If oNParent does not have
+  such a child, stores in *pulChildID the identifier that such a
+  child _would_ have if inserted.
+*/
 boolean Node_hasDirChild(Node_T oNParent, Path_T oPPath,
                          size_t *pulChildID);
 
 
+/*
+  Returns TRUE if oNParent has a file child with path oPPath. Returns
+  FALSE if it does not.
+
+  If oNParent has such a child, stores in *pulChildID the child's
+  identifier (as used in Node_getChild). If oNParent does not have
+  such a child, stores in *pulChildID the identifier that such a
+  child _would_ have if inserted.
+*/
 boolean Node_hasFileChild(Node_T oNParent, Path_T oPPath,
                          size_t *pulChildID);
 

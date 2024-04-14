@@ -126,6 +126,39 @@ your disagreements with them? Copy the splint warnings here, and
 express your disagreement after each warning. If there are no
 warnings, then write "None."
 
+      armlab01:~/COS217-Assignment4/2DT$ splint checkerDT.c dynarray.c path.c dtGood.c
+      Splint 3.1.2 --- 20 Aug 2022
+      
+      dtGood.c: (in function DT_traversePath)
+      dtGood.c:94:42: Variable ulChildID used before definition
+        An rvalue is used that may not be initialized to a value on some execution
+        path. (Use -usedef to inhibit warning)
+      nodeDT.h:29:5: Function Node_new declared but not defined
+        A function or variable is declared, but not defined in any source code file.
+        (Use -declundef to inhibit warning)
+      nodeDT.h:36:8: Function Node_free declared but not defined
+      nodeDT.h:39:8: Function Node_getPath declared but not defined
+      nodeDT.h:50:9: Function Node_hasChild declared but not defined
+      nodeDT.h:54:8: Function Node_getNumChildren declared but not defined
+      nodeDT.h:62:5: Function Node_getChild declared but not defined
+      nodeDT.h:69:8: Function Node_getParent declared but not defined
+      nodeDT.h:76:5: Function Node_compare declared but not defined
+      nodeDT.h:85:7: Function Node_toString declared but not defined
+      path.h:94:13: Function exported but not used outside path: Path_getComponent
+        A declaration is exported, but not used outside this module. Declaration can
+        use static qualifier. (Use -exportlocal to inhibit warning)
+         path.c:316:1: Definition of Path_getComponent
+      checkerDT.h:17:9: Function exported but not used outside checkerDT:
+                           CheckerDT_Node_isValid
+         checkerDT.c:45:1: Definition of CheckerDT_Node_isValid
+      
+      Finished checking --- 12 code warnings
+   
+
+All the modules in Node_DT.h have been defined in NodeDGood.c,so we disagree 
+with the warnings pertaining to module definition.
+
+We used CheckerDT_Node_isValid in the client dtGood.c.
 
 
 ------------------------------------------------------------------------

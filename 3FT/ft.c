@@ -98,7 +98,6 @@ static int FT_traversePath(Path_T oPPath, Node_T *poNFurthest) {
             iStatus = Node_getChild(oNCurr, ulChildID, TRUE, &oNChild);
             if (iStatus == SUCCESS) {
                  oNCurr = oNChild;
-                 break;
             }
             /*If it was not success */
             else{

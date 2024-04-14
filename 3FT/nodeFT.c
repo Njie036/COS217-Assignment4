@@ -355,6 +355,30 @@ boolean Node_hasFileChild(Node_T oNParent, Path_T oPPath,
 
     return FALSE;
 }
+/*
+size_t Node_getNumChildren(Node_T oNParent) {
+    size_t numofChildren;
+    assert(oNParent != NULL);
+
+    numofChildren = 0;
+    if (oNParent->isFile)
+        return numofChildren;
+
+    numofChildren = DynArray_getLength(oNParent->oFileChildren) + 
+    DynArray_getLength(oNParent->oDirChildren);
+
+    return numofChildren;
+}
+*/
+
+/*--------------------------------------------------------------------*/
+/* helper static function that takes a node as an argument  returns  */
+size_t Node_getNumFileChildren(Node_T oNParent){
+    assert(oNParent != NULL);
+
+    return DynArray_getLength(oNParent->oFileChildren);
+
+}
 
 /*--------------------------------------------------------------------*/
 size_t Node_getNumDirChildren(Node_T oNParent){

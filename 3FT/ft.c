@@ -306,10 +306,6 @@ int FT_rmDir(const char *pcPath){
    if(!bIsInitialized){
     return INITIALIZATION_ERROR;
    }
-
-//    if (oNRoot == NULL){
-//         return NO_SUCH_PATH;
-//     }
     
    if(iStatus != SUCCESS) {
         return iStatus;

@@ -135,6 +135,20 @@ your disagreement after each warning. If there are no warnings, then
 write "None."
 
 
+Checking checkerDT.c
+
+   checkerDT.c: line 53: medium priority:
+   Do you want to validate 'pRealCount' through an assert?
+
+   checkerDT.c: line 79: low priority:
+   This area is deeply nested at level 4, consider refactoring
+
+   checkerDT.c: line 84: low priority:
+   This area is deeply nested at level 4, consider refactoring
+
+We don't want to validate 'pRealCount' through an assert because sometimes we might 
+not want the number of nodes in the DT.
+
 
 ------------------------------------------------------------------------
 What warnings does splint generate on your Part 3 code, and what are
@@ -214,7 +228,7 @@ warnings, then write "None."
             ft.c: line 680: low priority:
             A source code file should contain fewer than 500 lines;
             this file contains 681 lines
-            
+
       The pvContent and newContent can be null, so we don't want to validate 
       assert.
 ------------------------------------------------------------------------

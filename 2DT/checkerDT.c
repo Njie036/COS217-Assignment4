@@ -44,13 +44,11 @@ boolean CheckerDT_Node_isValid(Node_T oNNode) {
 }
 
 /*
-   Performs a pre-order traversal of the tree rooted at oNNode.
+   Performs a pre-order traversal of the tree rooted at oNNode. Passes the 
+   number of nodes in the DT to pRealCount.
    Returns FALSE if a broken invariant is found and
    returns TRUE otherwise.
 
-   You may want to change this function's return type or
-   parameter list to facilitate constructing your checks.
-   If you do, you should update this function comment.
 */
 static boolean CheckerDT_treeCheck(Node_T oNNode, size_t *pRealCount) {
    size_t ulIndex;
@@ -105,8 +103,8 @@ static boolean CheckerDT_treeCheck(Node_T oNNode, size_t *pRealCount) {
 boolean CheckerDT_isValid(boolean bIsInitialized, Node_T oNRoot,
                           size_t ulCount) {
 
-   size_t realCount = 0;
-   boolean checkerTreeGood;
+   size_t realCount = 0; /*used to track the number of nodes on DT*/
+   boolean checkerTreeGood; /* stores boolean status of CheckerDT_treeCheck*/
 
    /* Sample check on a top-level data structure invariant:
       if the DT is not initialized, its count should be 0. */

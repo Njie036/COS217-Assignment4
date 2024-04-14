@@ -487,6 +487,7 @@ void *FT_getFileContents(const char *pcPath){
     !Node_isFileNode(oNFound)) {
         return NULL;
     }
+    pvContent = Node_getFileContent(oNFound);
     return pvContent;
 
     /* Node_T oNFound = NULL;

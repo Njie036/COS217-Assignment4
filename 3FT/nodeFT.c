@@ -268,7 +268,7 @@ size_t Node_free(Node_T oNNode){
                                             ulIndex);
         }
     }
-    
+
     if(!oNNode->isFileNode) {
         /* recursively remove children in File DynArray*/
         while(DynArray_getLength(oNNode->oFileChildren) != 0) {
@@ -305,6 +305,11 @@ boolean Node_isFileNode(Node_T oNNode){
     return oNNode->isFileNode;
 }
 
+void *Node_getFileContent(Node_T oNNode){
+    assert(oNNode != NULL);
+    
+    return oNNode->content;
+}
 
 boolean Node_hasDirChild(Node_T oNParent, Path_T oPPath,
                          size_t *pulChildID) {

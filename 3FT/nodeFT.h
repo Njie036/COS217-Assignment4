@@ -44,6 +44,9 @@ Path_T Node_getPath(Node_T oNNode);
 when the node is a file but FALSE otherwiae. */
 boolean Node_isFileNode(Node_T oNNode);
 
+/*Takes a node and return its content */
+void *Node_getFileContent(Node_T oNNode);
+
 /*
   Returns TRUE if oNParent has a child with path oPPath. Returns
   FALSE if it does not.

@@ -266,19 +266,21 @@ size_t Node_free(Node_T oNNode){
                     )
                     (void) DynArray_removeAt(oNNode->oNParent->oDirChildren,
                                             ulIndex);
-
-             /* recursively remove children in File DynArray*/
-            while(DynArray_getLength(oNNode->oFileChildren) != 0) {
-                ulCount += Node_free(DynArray_get(oNNode->oFileChildren, 0));
-            }
-            DynArray_free(oNNode->oFileChildren);
-            
-            /* recursively remove children in Directory DynArray*/
-            while(DynArray_getLength(oNNode->oDirChildren) != 0) {
-                ulCount += Node_free(DynArray_get(oNNode->oDirChildren, 0));
-            }
-            DynArray_free(oNNode->oDirChildren);
         }
+    }
+    
+    if(!oNNode->isFileNode) {
+        /* recursively remove children in File DynArray*/
+        while(DynArray_getLength(oNNode->oFileChildren) != 0) {
+            ulCount += Node_free(DynArray_get(oNNode->oFileChildren, 0));
+        }
+        DynArray_free(oNNode->oFileChildren);
+        
+        /* recursively remove children in Directory DynArray*/
+        while(DynArray_getLength(oNNode->oDirChildren) != 0) {
+            ulCount += Node_free(DynArray_get(oNNode->oDirChildren, 0));
+        }
+        DynArray_free(oNNode->oDirChildren);
     }
 
     /* remove path */

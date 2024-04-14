@@ -16,7 +16,9 @@ typedef struct node *Node_T;
 
 /*
   Creates a new node in the File Tree, with path oPPath and
-  parent oNParent. Returns an int SUCCESS status and sets *poNResult
+  parent oNParent. Sets the file status of the node to the boolean bIsFile,
+  assigns the contents of the node the pvContent and the size of the content
+  to ulength and Returns an int SUCCESS status and sets *poNResult
   to be the new node if successful. Otherwise, sets *poNResult to NULL
   and returns status:
   * MEMORY_ERROR if memory could not be allocated to complete request
@@ -36,9 +38,12 @@ size_t ulength, Node_T *poNResult);
 */
 size_t Node_free(Node_T oNNode);
 
+/*Replaces the old content. Takes oNNode, newContent, and length as arguments
+and return a void pointer. */
 void *Node_replaceOldContent(Node_T oNNode, void *newContent, size_t length);
 
-/* Returns the path object representing oNNode's absolute path. */
+/* Takes oNNode as an argument and returns the path object representing 
+oNNode's absolute path. */
 Path_T Node_getPath(Node_T oNNode);
 
 /* Checks if it is file. Takes oNNode as an argument and return TRUE 

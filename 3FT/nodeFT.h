@@ -50,7 +50,7 @@ Path_T Node_getPath(Node_T oNNode);
 when the node is a file but FALSE otherwiae. */
 boolean Node_isFileNode(Node_T oNNode);
 
-/*Takes a node and return its content */
+/*Takes oNNode as an argument and return its content */
 void *Node_getFileContent(Node_T oNNode);
 
 /* Returns the number of file children that oNParent has. */
@@ -89,9 +89,11 @@ boolean Node_hasFileChild(Node_T oNParent, Path_T oPPath,
                          size_t *pulChildID);
 
 /*
-  Returns an int SUCCESS status and sets *poNResult to be the child
-  node of oNParent with identifier ulChildID, if one exists.
-  Otherwise, sets *poNResult to NULL and returns status:
+  Takes oNParent, ulChildID, bIsFile *poNResult as arguments. 
+  bIsFile checks if it is a file or directory. Returns an int SUCCESS 
+  status and sets *poNResult to be the child node of oNParent with 
+  identifier ulChildID, if one exists.Otherwise, sets *poNResult to 
+  NULL and returns status:
   * NO_SUCH_PATH if ulChildID is not a valid child for oNParent
 */
 int Node_getChild(Node_T oNParent, size_t ulChildID, boolean bIsFile,

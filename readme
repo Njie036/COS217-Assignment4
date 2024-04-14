@@ -142,6 +142,32 @@ your disagreements with them? Copy the splint warnings here, and
 express your disagreement after each warning. If there are no
 warnings, then write "None."
 
+      armlab01:~/COS217-Assignment4/3FT$ splint nodeFT.c ft.c path.c dynarray.c
+      Splint 3.1.2 --- 20 Aug 2022
+      
+      nodeFT.c: (in function Node_addChild)
+      nodeFT.c:67:53: Variable ulIndex used before definition
+        An rvalue is used that may not be initialized to a value on some execution
+        path. (Use -usedef to inhibit warning)
+      nodeFT.c:77:47: Variable ulIndex used before definition
+      nodeFT.c: (in function Node_free)
+      nodeFT.c:260:41: Variable ulIndex used before definition
+      nodeFT.c:269:45: Variable ulIndex used before definition
+      ft.c: (in function FT_traversePath)
+      ft.c:83:45: Variable ulChildID used before definition
+      ft.c:98:45: Variable ulChildID used before definition
+      path.h:94:13: Function exported but not used outside path: Path_getComponent
+        A declaration is exported, but not used outside this module. Declaration can
+        use static qualifier. (Use -exportlocal to inhibit warning)
+         path.c:316:1: Definition of Path_getComponent
+      nodeFT.h:113:5: Function exported but not used outside nodeFT: Node_compare
+         nodeFT.c:432:1: Definition of Node_compare
+      
+      Finished checking --- 8 code warnings
+
+Variable ulIndex used is before definition because we did not set it but was set
+in DynArray_bsearch.
+
 
 
 ------------------------------------------------------------------------
@@ -154,22 +180,18 @@ warnings, then write "None."
 
       Checking nodeFT.c
       
-         nodeFT.c: line 444: low priority: 
+         nodeFT.c: line 445: low priority: 
          A file should contain no more than 15 functions;
          this file contains 17 functions
       
          nodeFT.c: line 97: medium priority:
          Do you want to validate 'pvContent' through an assert?
       
-         nodeFT.c: line 97: medium priority:
-         Do you want to validate 'poNResult' through an assert?
-      
-         nodeFT.c: line 226: medium priority:
+         nodeFT.c: line 227: medium priority:
          Do you want to validate 'newContent' through an assert?
 
-The asserts are done on the implementation. 
-
-
+The pvContent and newContent can be null, so we don't want to validate 
+assert.
 
 ------------------------------------------------------------------------
 For each of the five faulty BDT implementations required by Step

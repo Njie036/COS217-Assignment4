@@ -150,6 +150,25 @@ your disagreements with them? Copy the critTer warnings here, and
 express your disagreement after each warning. If there are no
 warnings, then write "None."
 
+      armlab01:~/COS217-Assignment4/3FT$ critTer nodeFT.c
+
+      Checking nodeFT.c
+      
+         nodeFT.c: line 444: low priority: 
+         A file should contain no more than 15 functions;
+         this file contains 17 functions
+      
+         nodeFT.c: line 97: medium priority:
+         Do you want to validate 'pvContent' through an assert?
+      
+         nodeFT.c: line 97: medium priority:
+         Do you want to validate 'poNResult' through an assert?
+      
+         nodeFT.c: line 226: medium priority:
+         Do you want to validate 'newContent' through an assert?
+
+The asserts are done on the implementation. 
+
 
 
 ------------------------------------------------------------------------

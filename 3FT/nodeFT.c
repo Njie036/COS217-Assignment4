@@ -102,6 +102,8 @@ void *pvContent, size_t ulength, Node_T *poNResult)
     size_t ulIndex;
     int iStatus;
 
+    assert(poNResult != NULL);
+    assert(pvContent != NULL);
     assert(oPPath != NULL);
 
     /* allocate space for a new node */
